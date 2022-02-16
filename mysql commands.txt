@@ -1,0 +1,72 @@
+insert into school values(
+
+create table college(regno int(3), name char(30),marks int(3),address char(30));
+insert into college values(1, 'Shafeeq',90,'manchester');
+insert into college values(35, 'Ben',105,'birmingham');
+insert into college values(22, 'James',50,'london');
+insert into college values(58, 'Mary',122,'froome');
+
+
+
+select name,marks,marks*100/150 as percentage from college where regno>30;
+
+select * from college where marks>60 and marks<110;
+
+create table consultants(regno int(3), name char(30), marks int(3), salary int(6), subject char (30), client char(30));
+
+insert into consultants values(23,'Shafeeq',75,1200,'java','IBM');
+insert into consultants values(37,'James',81,1400,'python','NBS');
+insert into consultants values(38,'Peter',49,870,'c sharp','Halifax');
+insert into consultants values(46,'Mary',55,1300,'python','NBS');
+insert into consultants values(33,'Jim',78,1500,'java','Halifax');
+insert into consultants values(21,'Hannah',90,1100,'java','NBS');
+insert into consultants values(62,'Eloise',22,700,'java','IBM');
+insert into consultants values(55,'Bob',67,900,'java','NBS');
+insert into consultants values(40,'Mark',94,9800,'python','Halifax');
+insert into consultants values(39,'Carrie',67,1900,'python','Natwest');
+
+select name from consultants where subject='java' and client='IBM';
+select name from consultants where client='NBS' or client='IBM';
+select name from consultants where client in ('NBS','IBM');
+
+select name from consultants where subject='java' and client in ('NBS','IBM');
+
+select name from consultants where subject in('java','python') and client in ('NBS','IBM');
+select name from consultants where not subject in('java','python') and client in ('NBS','IBM');
+select * from consultants where salary between 1000 and 2000;
+
+update college set name='Bob',mark=80 where regno=1;
+update consultants set salary=(salary+20);
+update consultants set salary=((salary/100)*120);
+select max(salary) from consultants;
+select sum(salary) as "total salary",max(salary) as "highest salary",max(regno) as "max reg number",avg(salary) as "average salary",min(salary) as "minimum salary" from consultants;
+
+select * from consultants where salary<(select avg(salary) from consultants);
+
+
+select * from consultants where marks=(select max(marks) from consultants where marks<(select max(marks) from consultants));
+// returns the records with the 1st highest mark
+select * from consultants where marks=(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants)));
+// returns the records with the 2nd highest mark
+select * from consultants where marks=(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants))));
+// returns the records with the 3rd highest mark
+
+select * from consultants where marks=((select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants))))) or marks=(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants))) or marks=(select max(marks) from consultants where marks<(select max(marks) from consultants));
+// returns the records with the top 3 marks
+
+select * from consultants where marks>=(select max(marks) from consultants where marks<(select max(marks) from consultants where marks<(select max(marks) from consultants))) order by marks desc;
+// better way to return the records with the top 3 marks (and in descending order)
+
+
+select count(*) as amount,client,subject from consultants group by client,subject;
+
+select name,length(name) from consultants;
+select name,substr(name,2,2) from consultants;
+select name from consultants where substr(name,1,1)='m';
+select name from consultants where substr(name,1,1)='m' and substr(name,4,1)='y';
+
+
+
+
+create table bank(accno char(5), name char(20));
+

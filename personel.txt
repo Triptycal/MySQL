@@ -1,0 +1,15 @@
+use nbs
+create table personal(regno int, name char(30));
+create table exams(regno int, subject char(30), marks int);
+insert into personal values (1,'shafeeq');
+insert into personal values (2,'james');
+insert into exams values (1,'physics',70);
+insert into exams values (1,'chem',76);
+insert into exams values (2,'physics',88);
+insert into exams values (2,'chem',30);
+
+select personal.name,exams.marks from personal,exams where personal.regno=exams.regno;
+
+
+
+

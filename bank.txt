@@ -1,0 +1,13 @@
+insert into bank values ((select concat('s','s',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) as "new account" from bank B where substr(accno,1,1)='s'),'James');
+// adds a new record in, which is 1 more than the previous
+
+
+insert into bank values ((select concat('c','e',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) as "new account" from bank B where substr(accno,1,1)='c'),'Lauren');
+insert into bank values ((select concat('c','s',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) as "new account" from bank B where substr(accno,1,1)='c'),'Frank');
+insert into bank values ((select concat('c','i',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) as "new account" from bank B where substr(accno,1,1)='c'),'Danuta');
+insert into bank values ((select concat('c','s',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) as "new account" from bank B where substr(accno,1,1)='c'),'Richard');
+insert into bank values ((select concat('c','w',ifnull(lpad(max(substr(accno,3,3))+1,3,'0'),'001')) from bank B where substr(accno,1,1)='c'),'Carly');
+
+
+
+

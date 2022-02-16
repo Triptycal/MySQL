@@ -1,0 +1,53 @@
+create database tesco;
+use tesco;
+create table category (cid int(3), name char(30));
+create table subcategory (sid int(3),cid int(3), name char(30));
+create table product (pid int(3),sid int(3), name char(30));
+create table sales (pid int(3),quantity int(3),price float, salesdate date);
+
+insert into category values(1,'food');
+insert into category values(2,'sports');
+insert into category values(3,'home');
+insert into subcategory values(10,1,'drinks');
+insert into subcategory values(20,1,'snacks');
+insert into subcategory values(30,2,'cricket');
+insert into subcategory values(40,2,'football');
+insert into subcategory values(50,3,'bathroom');
+insert into subcategory values(60,3,'kitchen');
+insert into product values(101,10,'coke');
+insert into product values(102,10,'7up');
+insert into product values(103,20,'crisps');
+insert into product values(104,20,'biscuits');
+insert into product values(105,30,'bats');
+insert into product values(106,30,'gloves');
+insert into product values(107,40,'boots');
+insert into product values(108,40,'ball');
+insert into product values(109,50,'toothbrush');
+insert into product values(110,50,'toilet roll');
+insert into product values(111,60,'cutlery');
+insert into product values(112,60,'bowl');
+
+
+alter table sales modify price float;
+
+select count(*) from subcategory where cid=(select cid from category where name='food');
+select name from subcategory where cid=(select cid from category where name='food');
+select name from product where sid in(select sid from subcategory where cid =(select cid from category where name='food'));
+//finds cid in category that relates to food, then searches in subcategory for all subcategory id's that have the food type cid. then looks in products and finds the name of all products that have one of those sid's that were just found.
+
+insert into sales values (101,1,1.50,'2022-01-26');
+insert into sales values (102,5,3.50,'2022-01-26');
+insert into sales values (103,7,7.50,'2022-01-26');
+insert into sales values (104,2,1.20,'2022-01-26');
+insert into sales values (106,8,1.00,'2022-01-26');
+insert into sales values (101,3,1.50,'2022-01-25');
+insert into sales values (102,5,3.50,'2022-01-25');
+insert into sales values (103,1,7.50,'2022-01-25');
+insert into sales values (104,2,1.20,'2022-01-25');
+insert into sales values (106,2,1.00,'2022-01-25');
+select product.pid,name,quantity,price from product,sales where product.pid=sales.pid order by name;
+select product.pid,name,quantity,price from product,sales where product.pid=sales.pid group by pid;
+
+
+
+
